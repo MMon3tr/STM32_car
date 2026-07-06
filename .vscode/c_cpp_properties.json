@@ -1,0 +1,41 @@
+{
+    "configurations": [
+        {
+            "name": "STM32F103",
+            "includePath": [
+                "${workspaceFolder}/user",
+                "${workspaceFolder}/ml_libs",
+                "${workspaceFolder}/sys",
+                "${workspaceFolder}/code",
+                "D:/Keil5/ARM/ARMCC/include",
+                "D:/Keil5/ARM/ARMCC/include/rw"
+            ],
+            "defines": [
+                "STM32F10X_HD",
+                "__CC_ARM",
+                "__arm__",
+                "__weak=",
+                "__packed=",
+                "__irq=",
+                "__asm(x)=",
+                "__inline=",
+                "__nop()=",
+                "__wfi()=",
+                "__wfe()=",
+                "__align(x)=",
+                "__ALIGNOF__(x)=",
+                "__alignof__(x)=",
+                "__attribute__(x)=",
+                "__forceinline=",
+                "__restrict=",
+                "__declspec(x)=",
+                "__svc(n)=",
+                "__breakpoint(x)=",
+                "__semihost(x,y)=0"
+            ],
+            "compilerPath": "D:/Keil5/ARM/ARMCC/bin/armcc.exe",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}

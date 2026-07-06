@@ -1,0 +1,37 @@
+# Keil MDK
+*.uvguix.*
+*.uvoptx
+*.uvprojx
+*.uvopt
+*.uvproj
+*.scvd
+*.crf
+*.d
+*.o
+*.dep
+*.lst
+*.htm
+*.lnp
+*.plg
+*.iex
+*.axf
+*.sct
+*.map
+*.build_log.htm
+*.JLinkLog.txt
+JLinkLog.txt
+*.Administrator
+RTE/
+Listings/
+Objects/
+DebugConfig/
+
+# VS Code
+.vscode/keil-assistant.log
+.vscode/uv4.log
+.vscode/uv4.log.lock
+
+# OS
+Thumbs.db
+Desktop.ini
+*.tmp
