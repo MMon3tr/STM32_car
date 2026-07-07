@@ -10,15 +10,15 @@ int main(void)
 	encoder_init();
 	uart_init(UART_1,115200,0);
 
-	// 保守 PID 参数：P=50, I=1, D=0
-	pid_init(&motorA, DELTA_PID, 50, 1, 0);
-	pid_init(&motorB, DELTA_PID, 50, 1, 0);
+	// PID 参数：P=1500, I=30, D=0（增量式，30ms周期）
+	pid_init(&motorA, DELTA_PID, 1500, 30, 0);
+	pid_init(&motorB, DELTA_PID, 1500, 30, 0);
 
-	// 先只调电机 A，目标 5 脉冲/10ms（最大速度约 10）
-	motor_target_set(5, 0);
+	// 双电机闭环，目标 15 脉冲/30ms
+	motor_target_set(15, 15);
 
-	// 启动 10ms PID 定时中断
-	tim_interrupt_ms_init(TIM_3, 10, 0);
+	// 启动 30ms PID 定时中断（增大周期提高速度分辨率）
+	tim_interrupt_ms_init(TIM_3, 30, 0);
 
 	while (1)
 	{

@@ -83,13 +83,13 @@ void pid_control()
 	motorA_duty(motorA.out);
 	motorB_duty(motorB.out);
 
-	// 每 500ms 打印一次调试信息（10ms周期 × 50次）
+	// 每 ~500ms 打印一次调试信息
 	static uint8_t print_cnt = 0;
-	if(++print_cnt >= 50)
+	if(++print_cnt >= 17)
 	{
 		print_cnt = 0;
-		printf("A tar:%.0f now:%.0f out:%.0f\r\n", motorA.target, motorA.now, motorA.out);
-		printf("B tar:%.0f now:%.0f out:%.0f\r\n", motorB.target, motorB.now, motorB.out);
+		printf("A tar:%d now:%d out:%d\r\n", (int)motorA.target, (int)motorA.now, (int)motorA.out);
+		printf("B tar:%d now:%d out:%d\r\n", (int)motorB.target, (int)motorB.now, (int)motorB.out);
 	}
 }
 void pid_cal(pid_t *pid)
