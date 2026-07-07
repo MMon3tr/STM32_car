@@ -1,5 +1,5 @@
 #include "headfile.h"
-
+// 全速50000
 int main(void)
 {
 	OLED_Init();
@@ -7,7 +7,7 @@ int main(void)
 	OLED_ShowString(2,1,"Ciallo");
 	
 	motor_init();
-	encoder_init();
+	encoder_init();	
 
 	uart_init(UART_1,115200,0);
 	

@@ -33,7 +33,7 @@
                 "__breakpoint(x)=",
                 "__semihost(x,y)=0"
             ],
-            "compilerPath": "D:/Keil5/ARM/ARMCC/bin/armcc.exe",
+            "compilerPath": "D:/MinGW64/bin/gcc.exe",
             "intelliSenseMode": "gcc-arm"
         }
     ],
