@@ -24,10 +24,17 @@ typedef struct
 void pid_cal(pid_t *pid);
 void pid_control(void);
 void pid_init(pid_t *pid, uint32_t mode, float p, float i, float d);
-void motor_target_set(int spe1, int spe2);
+void motor_target_set(float spe1, float spe2);
 void pidout_limit(pid_t *pid);
 
 extern pid_t motorA;
 extern pid_t motorB;
 extern pid_t angle;
+extern volatile int pid_debug_a_target;
+extern volatile int pid_debug_a_now;
+extern volatile int pid_debug_a_out;
+extern volatile int pid_debug_b_target;
+extern volatile int pid_debug_b_now;
+extern volatile int pid_debug_b_out;
+extern volatile int pid_debug_b_ccr;
 #endif
