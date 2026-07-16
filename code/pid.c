@@ -133,3 +133,11 @@ void pidout_limit(pid_t *pid)
 	if(pid->out <= 0)
 		pid->out = 0;
 }
+
+/* 将角度误差规范到 [-180, 180] 度 */
+float angle_error_normalize(float error)
+{
+	while (error > 180.0f)  error -= 360.0f;
+	while (error < -180.0f) error += 360.0f;
+	return error;
+}

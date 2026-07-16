@@ -2,35 +2,42 @@
 
 #define SDA_Output(x)  gpio_set(I2C_GPIO, I2C_SDA_GPIO_Pin, x)
 #define SCL_Output(x)  gpio_set(I2C_GPIO, I2C_SCL_GPIO_Pin, x)
-#define SDA_Input() gpio_get(I2C_GPIO, I2C_SDA_GPIO_Pin)
+#define SDA_Input()    gpio_get(I2C_GPIO, I2C_SDA_GPIO_Pin)
+
+/* I2Cæ—¶åºå»¶æ—¶: çº¦250kHz (Fast-modeå…¼å®¹), 72MHzä¸‹delay_us(2) â‰ˆ 2us */
+#define I2C_DELAY      delay_us(2)
 
 void I2C_Init()
 {
 	gpio_init(I2C_GPIO, I2C_SCL_GPIO_Pin, OUT_OD);
 	gpio_init(I2C_GPIO, I2C_SDA_GPIO_Pin, OUT_OD);
-	
+
 	SDA_Output(1);
 	SCL_Output(1);
 }
 
-// ÆğÊ¼ĞÅºÅ
+// èµ·å§‹ä¿¡å·
 void I2C_Start()
 {
 	SDA_Output(1);
 	SCL_Output(1);
+	I2C_DELAY;
 	SDA_Output(0);
+	I2C_DELAY;
 	SCL_Output(0);
 }
 
-// ÖÕÖ¹ĞÅºÅ 
+// åœæ­¢ä¿¡å·
 void I2C_Stop()
 {
 	SDA_Output(0);
+	I2C_DELAY;
 	SCL_Output(1);
+	I2C_DELAY;
 	SDA_Output(1);
 }
 
-// Ö÷»ú·¢ËÍÒ»¸ö×Ö½Ú
+// å‘é€ä¸€ä¸ªå­—èŠ‚
 void I2C_SendByte(uint8_t byte)
 {
 	for(int i = 0; i < 8; i++)
@@ -39,12 +46,14 @@ void I2C_SendByte(uint8_t byte)
 			SDA_Output(1);
 		else
 			SDA_Output(0);
+		I2C_DELAY;
 		SCL_Output(1);
+		I2C_DELAY;
 		SCL_Output(0);
 	}
 }
 
-// Ö÷»ú½ÓÊÕÒ»¸ö×Ö½Ú
+// æ¥æ”¶ä¸€ä¸ªå­—èŠ‚
 uint8_t I2C_ReceiveByte()
 {
 	uint8_t byte = 0;
@@ -52,39 +61,48 @@ uint8_t I2C_ReceiveByte()
 	for(int i = 0; i < 8; i++)
 	{
 		SCL_Output(1);
+		I2C_DELAY;
 		if(SDA_Input())
 			byte |= (0x80>>i);
 		SCL_Output(0);
+		I2C_DELAY;
 	}
-	
+
 	return byte;
 }
 
-// Ö÷»úÓ¦´ğ 
+// å‘é€åº”ç­”
 void I2C_SendAck()
 {
 	SDA_Output(0);
+	I2C_DELAY;
 	SCL_Output(1);
+	I2C_DELAY;
 	SCL_Output(0);
 }
 
-// Ö÷»ú²»Ó¦´ğ 
+// ä¸å‘é€åº”ç­”
 void I2C_NotSendAck()
 {
 	SDA_Output(1);
+	I2C_DELAY;
 	SCL_Output(1);
+	I2C_DELAY;
 	SCL_Output(0);
 }
 
-// µÈ´ı´Ó»úÓ¦´ğ 
+// ç­‰å¾…ä»æœºåº”ç­”
 uint8_t I2C_WaitAck()
 {
 	uint8_t byte = 0;
 	SDA_Output(1);
+	I2C_DELAY;
 	SCL_Output(1);
+	I2C_DELAY;
 	byte = SDA_Input();
 	SCL_Output(0);
-	
+	I2C_DELAY;
+
 	return byte;
 }
 

@@ -8,6 +8,9 @@
 #define OLED_W_SCL(x)		gpio_set(OLED_GPIO,OLED_SCL_Pin,x)
 #define OLED_W_SDA(x)		gpio_set(OLED_GPIO,OLED_SDA_Pin,x)
 
+/* I2C时序延时: 约250kHz */
+#define OLED_I2C_DELAY      delay_us(2)
+
 /*引脚初始化*/
 void OLED_I2C_Init(void)
 {
@@ -27,7 +30,9 @@ void OLED_I2C_Start(void)
 {
 	OLED_W_SDA(1);
 	OLED_W_SCL(1);
+	OLED_I2C_DELAY;
 	OLED_W_SDA(0);
+	OLED_I2C_DELAY;
 	OLED_W_SCL(0);
 }
 
@@ -39,7 +44,9 @@ void OLED_I2C_Start(void)
 void OLED_I2C_Stop(void)
 {
 	OLED_W_SDA(0);
+	OLED_I2C_DELAY;
 	OLED_W_SCL(1);
+	OLED_I2C_DELAY;
 	OLED_W_SDA(1);
 }
 
@@ -54,10 +61,13 @@ void OLED_I2C_SendByte(uint8_t Byte)
 	for (i = 0; i < 8; i++)
 	{
 		OLED_W_SDA(Byte & (0x80 >> i));
+		OLED_I2C_DELAY;
 		OLED_W_SCL(1);
+		OLED_I2C_DELAY;
 		OLED_W_SCL(0);
 	}
 	OLED_W_SCL(1);	//额外的一个时钟，不处理应答信号
+	OLED_I2C_DELAY;
 	OLED_W_SCL(0);
 }
 
